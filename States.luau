@@ -3,7 +3,7 @@
 --Module--
 
 local States = {}
-States.__index = States
+--States.__index = States
 
 
 --Variables--
