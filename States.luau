@@ -1,5 +1,9 @@
 --Singleton, good idea to create multiple of the script for each state if you want to have a state with the same <K, V>
 
+--!strict
+--!native
+--!optimize 2
+
 --Module--
 
 local States = {}
@@ -13,9 +17,19 @@ local TotalStates = 0
 
 --Public Functions--
 
-function States.Mutate(Key:any, Value:any)
+--"Constructor", .Mutate but with TotalStates addition
+function States.new(Key:{unknown}, Value:{unknown}):(any, any)
+	States[Key] = Value
+	TotalStates += 1
+	
+	return Key, Value
+end
+
+
+function States.Mutate(Key:{unknown}, Value:{unknown})
 	States[Key] = Value
 end
+
 
 --Gets the total amount of states, even if removed
 function States.GetTotalStates()
