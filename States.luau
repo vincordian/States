@@ -7,7 +7,7 @@
 --Module--
 
 local States = {}
---States.__index = States
+States.__index = States
 
 
 --Variables--
@@ -17,17 +17,26 @@ local TotalStates = 0
 
 --Public Functions--
 
---"Constructor", .Mutate but with TotalStates addition
-function States.new(Key:{unknown}, Value:{unknown}):(any, any)
+--Constructor
+function States.new(Key:{unknown}, Value:{unknown})
+	
+	local self = setmetatable({}, States)
+	
+	self.Key = Key
+	self.Value = Value
+	
 	States[Key] = Value
 	TotalStates += 1
-	
-	return Key, Value
+
+	return self
 end
 
 
-function States.Mutate(Key:{unknown}, Value:{unknown})
+function States:Mutate(Key:{unknown}, Value:{unknown})
+	States[self.Key] = nil
 	States[Key] = Value
+	self.Key = Key
+	self.Value = Value
 end
 
 
